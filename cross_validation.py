@@ -27,3 +27,16 @@ pipeline = Pipeline([
 scoruri_pipe = cross_val_score(pipeline, X, y, cv=5)
 print(f"Scoruri pipeline: {scoruri_pipe}")
 print(f"Media pipeline: {scoruri_pipe.mean():.3f}")
+
+from sklearn.model_selection import GridSearchCV
+
+parametri = {
+    'n_estimators': [10, 50, 100, 200],
+    'max_depth': [None, 2, 5]
+}
+
+grid = GridSearchCV(RandomForestClassifier(), parametri, cv=5)
+grid.fit(X, y)
+
+print(f"Cei mai buni parametri: {grid.best_params_}")
+print(f"Cel mai bun scor: {grid.best_score_:.3f}")
